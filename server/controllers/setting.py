@@ -302,10 +302,25 @@ class Query(Resource):
             query_col.update_one({'tag': args.get('tag')}, {'$set': args})
             msg = '更新成功'
         else:
-            new_query = args
-            new_query['_id'] = md5(''.join([str(v) for v in new_query.values()]))
-            query_col.insert_one(new_query)
-            msg = '添加成功'
+            keyword = args.get('keyword')
+            if keyword:
+                if "\n" in keyword:
+                    key_list = set(keyword.split())
+                    for item in key_list:
+                        tag = item.strip()
+                        new_query = {
+                            "tag": tag,
+                            "keyword": tag,
+                            "enabled": args.get('enabled')
+                        }
+                        new_query['_id'] = md5(''.join([str(v) for v in new_query.values()]))
+                        query_col.insert_one(new_query)
+
+                else:
+                    new_query = args
+                    new_query['_id'] = md5(''.join([str(v) for v in new_query.values()]))
+                    query_col.insert_one(new_query)
+                msg = '添加成功'
         result = list(query_col.find({}).sort('enabled', -1))
         data = {'status': 200, 'msg': msg, 'result': result}
         return jsonify(data)

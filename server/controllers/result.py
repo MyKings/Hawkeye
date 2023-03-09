@@ -7,7 +7,7 @@ import json
 class Leakage(Resource):
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('status', type=str, help='')
+        parser.add_argument('status', type=str, default="{}", help='')
         parser.add_argument('tag', type=str, help='')
         parser.add_argument('language', type=str, help='')
         parser.add_argument('limit', type=int, default=10, help='')
