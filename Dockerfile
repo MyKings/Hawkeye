@@ -15,6 +15,7 @@ RUN cp /Hawkeye/deploy/nginx/*.conf /usr/local/openresty/nginx/conf/
 RUN cp /Hawkeye/deploy/supervisor/*.conf /etc/supervisor/conf.d/
 COPY ./client/dist /Hawkeye/client/dist
 COPY ./server /Hawkeye/server
+COPY ./deploy/nginx/htpasswd /htpasswd
 WORKDIR /Hawkeye/server
 COPY ./docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh
