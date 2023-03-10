@@ -13,7 +13,7 @@ RUN pip install --upgrade pip setuptools==45.2.0
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /Hawkeye/deploy/pyenv/requirements.txt -U
 RUN cp /Hawkeye/deploy/nginx/*.conf /usr/local/openresty/nginx/conf/
 RUN cp /Hawkeye/deploy/supervisor/*.conf /etc/supervisor/conf.d/
-COPY ./ui/dist /Hawkeye/client/dist
+COPY ./client/dist /Hawkeye/client/dist
 COPY ./server /Hawkeye/server
 COPY ./deploy/nginx/htpasswd /htpasswd
 WORKDIR /Hawkeye/server
